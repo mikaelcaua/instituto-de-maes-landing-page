@@ -206,13 +206,13 @@ export function Projects() {
                     </Badge>
                   ))}
                 </div>
-                <Button
+                {/* <Button
                   variant="link"
                   className="p-0 h-auto text-primary font-medium hover:text-primary/80"
                   onClick={() => setSelectedProject(project)}
                 >
                   Ver detalhes →
-                </Button>
+                </Button> */}
               </CardContent>
             </Card>
           ))}

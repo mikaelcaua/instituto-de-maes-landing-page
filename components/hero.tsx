@@ -69,9 +69,9 @@ export function Hero() {
 
             <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-xl shadow-lg border border-border max-w-xs">
               <p className="font-serif text-foreground italic">
-                "Essa sede foi construída com várias mãos de cada pessoa que deixou um pouquinho da sua contribuição."
+                "Esta sede foi construída por muitas mãos, com a contribuição de cada pessoa que fez parte desse caminho."
               </p>
-              <p className="text-sm text-muted-foreground mt-2">— Carla Almeida, Presidente</p>
+              <p className="text-sm text-muted-foreground mt-2">— Karla Almeida, Presidente</p>
             </div>
           </div>
         </div>

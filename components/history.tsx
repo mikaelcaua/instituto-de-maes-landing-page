@@ -1,33 +1,50 @@
-import { Calendar, Award, Building, Sparkles } from "lucide-react"
+import { Calendar, Award, Building, Sparkles, Users, GraduationCap, Scissors } from "lucide-react"
 
 const timeline = [
   {
-    year: "Anos 90",
+    year: "1999",
     icon: Sparkles,
-    title: "O Início do Sonho",
+    title: "Origem do Clube",
     description:
-      "Um grupo de mães da comunidade Vila Verde se une com o sonho de criar um espaço de apoio mútuo e desenvolvimento.",
+      "A festa das crianças organizada pelas mães da Vila Verde dá início ao movimento que se tornaria o Clube de Mães.",
   },
   {
-    year: "2000s",
+    year: "2004",
     icon: Building,
-    title: "Primeiros Passos",
+    title: "Oficialização",
     description:
-      "O Clube das Mães se estabelece como referência na comunidade, oferecendo cursos de costura e artesanato.",
+      "O Clube torna-se pessoa jurídica e passa a organizar mutirões, reivindicar serviços e articular melhorias na comunidade.",
+  },
+  {
+    year: "2014",
+    icon: Scissors,
+    title: "Costurando o Futuro",
+    description:
+      "Parceria com a Vale capacita 150 mulheres em costura, gerando renda e novas oportunidades.",
   },
   {
     year: "2020",
     icon: Award,
-    title: "Projeto Máscaras pela Vida",
-    description: "Parceria com a UFMA no projeto de confecção de máscaras, permitindo a conclusão da reforma da sede.",
+    title: "Máscaras pela Vida",
+    description:
+      "Na pandemia, produção de 30 mil máscaras com a UFMA gera renda para costureiras e impulsiona a construção da sede.",
   },
   {
-    year: "2020",
-    icon: Calendar,
-    title: "Nova Sede Inaugurada",
-    description: "Inauguração da nova sede com apoio da UFMA e parceiros, realizando um sonho de mais de 20 anos.",
+    year: "2023",
+    icon: GraduationCap,
+    title: "Capacitação",
+    description:
+      "Presidente e vice realizam formação e passam a integrar o edital Rede de Prosperidade Familiar.",
   },
-]
+  {
+    year: "2025",
+    icon: Users,
+    title: "Instituto Criado",
+    description:
+      "O Clube se transforma no Instituto de Mães e Pais da Vila Verde, ampliando sua atuação comunitária.",
+  },
+];
+
 
 export function History() {
   return (
@@ -44,7 +61,7 @@ export function History() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 items-center">
           <div className="relative">
             <div className=" rounded-2xl overflow-hidden">
               <img
