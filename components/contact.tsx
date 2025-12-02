@@ -1,27 +1,7 @@
-"use client"
-
 import type React from "react"
-
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { MapPin, Mail, Instagram, Send, Heart } from "lucide-react"
+import { MapPin, Mail, Instagram, Heart, Phone } from "lucide-react"
 
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formData)
-  }
-
   return (
     <section id="contato" className="py-24">
       <div className="container mx-auto px-4">
@@ -36,120 +16,112 @@ export function Contact() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          <div className="bg-primary rounded-2xl p-8 md:p-12 text-primary-foreground">
-            <h3 className="font-serif text-2xl font-bold mb-8">Informações de Contato</h3>
+        <div className="w-full max-w-4xl mx-auto">
+          <div className="bg-primary rounded-2xl p-8 md:p-12 text-primary-foreground shadow-xl">
+            <div className="grid md:grid-cols-2 gap-12">
+              <div>
+                <h3 className="font-serif text-2xl font-bold mb-8">Informações de Contato</h3>
+                <div className="space-y-4">
+                  <a
+                    href="https://maps.app.goo.gl/MhoaKDyXNnWEuZ4C9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 p-3 -ml-3 rounded-xl hover:bg-primary-foreground/10 transition-colors group"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center shrink-0 group-hover:bg-primary-foreground/20 transition-colors">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Localização</h4>
+                      <p className="text-primary-foreground/80 group-hover:text-primary-foreground transition-colors">
+                        Comunidade Vila Verde
+                        <br />
+                        Anjo da Guarda, São Luís - MA
+                      </p>
+                    </div>
+                  </a>
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Localização</h4>
-                  <p className="text-primary-foreground/80">
-                    Comunidade Vila Verde
-                    <br />
-                    Anjo da Guarda, São Luís - MA
-                  </p>
-                </div>
-              </div>
+                  <a
+                    href="https://wa.me/5598999114403"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 p-3 -ml-3 rounded-xl hover:bg-primary-foreground/10 transition-colors group"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center shrink-0 group-hover:bg-primary-foreground/20 transition-colors">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">WhatsApp</h4>
+                      <p className="text-primary-foreground/80 group-hover:text-primary-foreground transition-colors">
+                        (98) 99999-9999
+                      </p>
+                    </div>
+                  </a>
 
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center shrink-0">
-                  <Instagram className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Instagram</h4>
                   <a
                     href="https://www.instagram.com/institutodemaesepaisvilaverde/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                    className="flex items-start gap-4 p-3 -ml-3 rounded-xl hover:bg-primary-foreground/10 transition-colors group"
                   >
-                    @institutodemaesepaisvilaverde
+                    <div className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center shrink-0 group-hover:bg-primary-foreground/20 transition-colors">
+                      <Instagram className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Instagram</h4>
+                      <p className="text-primary-foreground/80 group-hover:text-primary-foreground transition-colors">
+                        @institutodemaesepaisvilaverde
+                      </p>
+                    </div>
+                  </a>
+
+                  <a
+                    href="mailto:clubedemaesvilaverde@gmail.com"
+                    className="flex items-start gap-4 p-3 -ml-3 rounded-xl hover:bg-primary-foreground/10 transition-colors group"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center shrink-0 group-hover:bg-primary-foreground/20 transition-colors">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">E-mail</h4>
+                      <p className="text-primary-foreground/80 group-hover:text-primary-foreground transition-colors">
+                        clubedemaesvilaverde@gmail.com
+                      </p>
+                    </div>
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">E-mail</h4>
-                  <p className="text-primary-foreground/80">contato@institutodemaesvilaverde.org</p>
-                </div>
+              <div className="md:border-l md:border-primary-foreground/20 md:pl-12 flex flex-col justify-center">
+                <h4 className="font-serif text-2xl font-bold mb-8">Como Você Pode Ajudar</h4>
+                <ul className="space-y-4 text-primary-foreground/80 text-lg">
+                  <li className="flex items-center gap-3">
+                    <div className="p-2 bg-primary-foreground/10 rounded-full">
+                      <Heart className="w-4 h-4" />
+                    </div>
+                    Doações de equipamentos
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="p-2 bg-primary-foreground/10 rounded-full">
+                      <Heart className="w-4 h-4" />
+                    </div>
+                    Voluntariado em oficinas
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="p-2 bg-primary-foreground/10 rounded-full">
+                      <Heart className="w-4 h-4" />
+                    </div>
+                    Parcerias institucionais
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="p-2 bg-primary-foreground/10 rounded-full">
+                      <Heart className="w-4 h-4" />
+                    </div>
+                    Divulgação nas redes sociais
+                  </li>
+                </ul>
               </div>
             </div>
-
-            <div className="mt-12 pt-8 border-t border-primary-foreground/20">
-              <h4 className="font-semibold mb-4">Como Você Pode Ajudar</h4>
-              <ul className="space-y-2 text-primary-foreground/80">
-                <li className="flex items-center gap-2">
-                  <Heart className="w-4 h-4" />
-                  Doações de equipamentos
-                </li>
-                <li className="flex items-center gap-2">
-                  <Heart className="w-4 h-4" />
-                  Voluntariado em oficinas
-                </li>
-                <li className="flex items-center gap-2">
-                  <Heart className="w-4 h-4" />
-                  Parcerias institucionais
-                </li>
-                <li className="flex items-center gap-2">
-                  <Heart className="w-4 h-4" />
-                  Divulgação nas redes sociais
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="bg-card rounded-2xl p-8 md:p-12 border border-border">
-            <h3 className="font-serif text-2xl font-bold text-foreground mb-8">Envie uma Mensagem</h3>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">Nome Completo</Label>
-                <Input
-                  id="name"
-                  placeholder="Seu nome"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email">E-mail</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="seu@email.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="message">Mensagem</Label>
-                <Textarea
-                  id="message"
-                  placeholder="Como você gostaria de contribuir ou qual sua dúvida?"
-                  rows={5}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  required
-                />
-              </div>
-
-              <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground">
-                Enviar Mensagem
-                <Send className="ml-2 w-4 h-4" />
-              </Button>
-            </form>
           </div>
         </div>
       </div>

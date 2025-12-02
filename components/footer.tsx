@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Heart, Instagram, Mail } from "lucide-react"
+import { Heart, Instagram, Mail, Phone } from "lucide-react"
 
 export function Footer() {
   return (
@@ -44,6 +44,15 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Siga-nos</h4>
             <div className="flex gap-4">
               <a
+                href="https://wa.me/5598999114403"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-background/10 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors"
+                aria-label="WhatsApp"
+              >
+                <Phone className="w-5 h-5" />
+              </a>
+              <a
                 href="https://www.instagram.com/institutodemaesepaisvilaverde/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -53,7 +62,7 @@ export function Footer() {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="mailto:contato@institutodemaesvilaverde.org"
+                href="mailto:clubedemaesvilaverde@gmail.com"
                 className="w-10 h-10 rounded-lg bg-background/10 flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-colors"
                 aria-label="E-mail"
               >
@@ -69,15 +78,6 @@ export function Footer() {
               </p>
             </div>
           </div>
-        </div>
-
-        <div className="pt-8 border-t border-background/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-background/50 text-sm">
-            © {new Date().getFullYear()} Instituto de Mães e Pais Vila Verde. Todos os direitos reservados.
-          </p>
-          <p className="text-background/50 text-sm flex items-center gap-1">
-            Feito com <Heart className="w-4 h-4 text-secondary" /> pela comunidade
-          </p>
         </div>
       </div>
     </footer>

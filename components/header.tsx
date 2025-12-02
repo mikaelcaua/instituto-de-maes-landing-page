@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Menu, X, Heart } from "lucide-react"
+import { Menu, X, Heart, Instagram, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navLinks = [
@@ -41,7 +41,26 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
+            <a
+              href="https://www.instagram.com/institutodemaesepaisvilaverde/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-colors"
+              aria-label="Instagram"
+            >
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a
+              href="https://wa.me/5598999114403"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-[#25D366] transition-colors"
+              aria-label="WhatsApp"
+            >
+              <Phone className="w-5 h-5" />
+            </a>
+            <div className="w-px h-6 bg-border mx-2" />
             <Button asChild className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
               <Link href="#contato">Apoie Nossa Causa</Link>
             </Button>
@@ -65,6 +84,26 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
+              
+              <div className="flex items-center gap-4 py-2 border-t border-border mt-2">
+                 <a
+                  href="https://www.instagram.com/institutodemaesepaisvilaverde/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://wa.me/5598999114403"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-[#25D366] transition-colors"
+                >
+                  <Phone className="w-5 h-5" />
+                </a>
+              </div>
+
               <Button asChild className="bg-secondary hover:bg-secondary/90 text-secondary-foreground w-fit">
                 <Link href="#contato">Apoie Nossa Causa</Link>
               </Button>
