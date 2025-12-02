@@ -31,7 +31,7 @@ const timeline = [
 
 export function History() {
   return (
-    <section id="historia" className="py-24">
+    <section id="historia" className="pt-24">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="text-secondary font-medium text-sm uppercase tracking-wider">Nossa História</span>
@@ -39,18 +39,17 @@ export function History() {
             Uma Trajetória de Resistência e Conquistas
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            Nossa história é marcada pela força, determinação e união das mulheres da Vila Verde, que juntas construíram
-            um símbolo de resistência e esperança.
+            A Vila Verde, localizada no bairro Anjo da Guarda, no eixo Itaqui-Bacanga (São Luís – MA), surgiu em 1994 a partir da ocupação de um antigo sítio por famílias que buscavam moradia digna. O nome do território foi inspirado na paisagem marcada por buritizeiros e árvores frutíferas.
+            Nesse período, os moradores enfrentaram desafios estruturais, como ruas de barro, casas de taipa e a ausência de água encanada, energia e serviços públicos básicos.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden">
+            <div className=" rounded-2xl overflow-hidden">
               <img
-                src="/brazilian-community-center-building-inauguration-c.jpg"
+                src="/history_image.jpg"
                 alt="Inauguração da nova sede do Instituto"
-                className="object-cover w-full h-full"
               />
             </div>
             <div className="absolute -bottom-6 -right-6 bg-secondary text-secondary-foreground p-6 rounded-xl">
@@ -78,20 +77,7 @@ export function History() {
           </div>
         </div>
 
-        <div className="mt-16 bg-accent/30 rounded-2xl p-8 md:p-12">
-          <blockquote className="max-w-3xl mx-auto text-center">
-            <p className="font-serif text-xl md:text-2xl text-foreground italic leading-relaxed">
-              "A gente agradece a oportunidade de tê-los conosco, e essa troca de vivências nos ajuda muito. É
-              superimportante a gente poder ver que vocês ultrapassam os muros."
-            </p>
-            <footer className="mt-6">
-              <cite className="text-muted-foreground not-italic">
-                <span className="font-semibold text-foreground">Carla Almeida</span>
-                <span className="block text-sm">Presidente do Instituto</span>
-              </cite>
-            </footer>
-          </blockquote>
-        </div>
+        
       </div>
     </section>
   )

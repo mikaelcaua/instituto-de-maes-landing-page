@@ -53,7 +53,7 @@ const projects = [
 
 export function Projects() {
   return (
-    <section id="projetos" className="py-24 bg-muted/30">
+    <section id="projetos" className="pt-24 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="text-secondary font-medium text-sm uppercase tracking-wider">Nossos Projetos</span>
@@ -97,14 +97,7 @@ export function Projects() {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-4 p-6 bg-card rounded-xl border border-border">
-            <div className="text-left">
-              <h3 className="font-semibold text-foreground">Parceiros que Fazem a Diferença</h3>
-              <p className="text-sm text-muted-foreground">UFMA, UEMA, Vale, Iara Fertilizantes, Glencore e outros</p>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </section>
   )
