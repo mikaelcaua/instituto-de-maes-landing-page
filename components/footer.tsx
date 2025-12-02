@@ -12,7 +12,7 @@ export function Footer() {
                 <Heart className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <span className="font-serif text-lg font-semibold">Instituto de Mães</span>
+                <span className="font-serif text-lg font-semibold">Instituto de Mães e Pais</span>
                 <span className="block text-xs text-background/70">Vila Verde</span>
               </div>
             </div>

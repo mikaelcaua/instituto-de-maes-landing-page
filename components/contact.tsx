@@ -88,7 +88,7 @@ export function Contact() {
               <ul className="space-y-2 text-primary-foreground/80">
                 <li className="flex items-center gap-2">
                   <Heart className="w-4 h-4" />
-                  Doações de materiais de costura
+                  Doações de equipamentos
                 </li>
                 <li className="flex items-center gap-2">
                   <Heart className="w-4 h-4" />

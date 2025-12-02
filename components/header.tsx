@@ -24,7 +24,7 @@ export function Header() {
               <Heart className="w-5 h-5 text-primary-foreground" />
             </div>
             <div className="hidden sm:block">
-              <span className="font-serif text-lg font-semibold text-foreground">Instituto de Mães</span>
+              <span className="font-serif text-lg font-semibold text-foreground">Instituto de Mães e Pais</span>
               <span className="block text-xs text-muted-foreground -mt-1">Vila Verde</span>
             </div>
           </Link>
