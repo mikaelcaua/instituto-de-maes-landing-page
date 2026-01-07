@@ -5,14 +5,15 @@ import { z } from "zod";
 export const runtime = "nodejs";
 
 const ProjectSchema = z.object({
-  id: z.string().optional(),
-  icon: z.string().min(1),
   title: z.string().min(1),
   description: z.string().min(1),
-  tags: z.array(z.string()),
-  status: z.enum(["Em andamento", "Concluído"]),
-  projectDetails: z.string().min(1),
-  year: z.string().min(1),
+  tags: z.array(z.string()).optional().default([]),
+  status: z
+    .enum(["Em andamento", "Concluído"])
+    .optional()
+    .default("Em andamento"),
+  projectDetails: z.string().optional().default(""),
+  year: z.string().optional().default(""),
   image: z.string().optional().default(""),
 });
 
@@ -46,21 +47,10 @@ function getConfig() {
 }
 
 function rowToProject(row: any[], rowIndex: number): ApiProject | null {
-  const [
-    id,
-    icon,
-    title,
-    description,
-    tags,
-    status,
-    projectDetails,
-    year,
-    image,
-  ] = row ?? [];
+  const [title, description, tags, status, projectDetails, year, image] =
+    row ?? [];
 
   const hasAny = [
-    id,
-    icon,
     title,
     description,
     tags,
@@ -71,9 +61,7 @@ function rowToProject(row: any[], rowIndex: number): ApiProject | null {
   ].some((v) => String(v ?? "").trim() !== "");
   if (!hasAny) return null;
 
-  const parsed: ApiProject = {
-    id: String(id ?? "").trim() || String(rowIndex + 2),
-    icon: String(icon ?? "").trim(),
+  const parsed = {
     title: String(title ?? "").trim(),
     description: String(description ?? "").trim(),
     tags: String(tags ?? "")
@@ -100,7 +88,7 @@ export async function GET() {
 
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: `${tab}!A2:I`,
+      range: `${tab}!A2:G`,
     });
 
     const rows = res.data.values ?? [];

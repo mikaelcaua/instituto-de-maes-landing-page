@@ -98,7 +98,7 @@ export function Transparencia() {
                   placeholder="Buscar por título..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 bg-white"
                 />
               </div>
               <div className="relative sm:w-64">
@@ -108,7 +108,7 @@ export function Transparencia() {
                   placeholder="Filtrar por data (ex: 2024)"
                   value={dateFilter}
                   onChange={(e) => setDateFilter(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 bg-white"
                 />
               </div>
             </div>

@@ -17,21 +17,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import {
-  Scissors,
-  Users,
-  Leaf,
-  Drama,
-  Wifi,
-  Recycle,
-  Heart,
-  LucideIcon,
-} from "lucide-react";
 
 interface Project {
-  id: string;
-  icon: LucideIcon;
-  iconName: string;
   title: string;
   description: string;
   tags: string[];
@@ -40,16 +27,6 @@ interface Project {
   year: string;
   image: string;
 }
-
-const ICONS: Record<string, LucideIcon> = {
-  Scissors,
-  Users,
-  Leaf,
-  Drama,
-  Wifi,
-  Recycle,
-  Heart,
-};
 
 export function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -66,12 +43,8 @@ export function Projects() {
         const res = await fetch("/api/projects");
         const data = (await res.json()) as any[];
 
-        const mapped: Project[] = (Array.isArray(data) ? data : []).map((p) => {
-          const iconName = String(p.icon || "");
-          return {
-            id: String(p.id || crypto.randomUUID()),
-            iconName,
-            icon: ICONS[iconName] ?? Leaf,
+        const mapped: Project[] = (Array.isArray(data) ? data : []).map(
+          (p) => ({
             title: String(p.title || ""),
             description: String(p.description || ""),
             tags: Array.isArray(p.tags)
@@ -84,8 +57,8 @@ export function Projects() {
             projectDetails: String(p.projectDetails || ""),
             year: String(p.year || ""),
             image: String(p.image || ""),
-          };
-        });
+          })
+        );
 
         if (alive) setProjects(mapped);
       } catch {
@@ -129,16 +102,14 @@ export function Projects() {
         ) : (
           <>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {visibleProjects.map((project) => (
+              {visibleProjects.map((project, idx) => (
                 <Card
-                  key={project.id}
+                  key={`${project.title}-${project.year}-${idx}`}
                   className="group hover:border-primary/30 transition-colors bg-card flex flex-col h-full"
                 >
                   <CardHeader>
                     <div className="flex items-start justify-between">
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors shrink-0">
-                        <project.icon className="w-6 h-6 text-primary" />
-                      </div>
+                      <div />
                       <div className="flex flex-col items-end gap-2">
                         <Badge
                           variant={
@@ -217,9 +188,6 @@ export function Projects() {
             <>
               <DialogHeader>
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <selectedProject.icon className="w-7 h-7 text-primary" />
-                  </div>
                   <div className="flex-1">
                     <DialogTitle className="font-serif text-2xl mb-2 text-balance leading-tight">
                       {selectedProject.title}
