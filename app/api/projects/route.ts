@@ -5,7 +5,7 @@ import { z } from "zod";
 export const runtime = "nodejs";
 
 const ProjectSchema = z.object({
-  id: z.string().min(1),
+  id: z.string().optional(),
   icon: z.string().min(1),
   title: z.string().min(1),
   description: z.string().min(1),
@@ -45,7 +45,7 @@ function getConfig() {
   return { spreadsheetId, tab };
 }
 
-function rowToProject(row: any[]): ApiProject | null {
+function rowToProject(row: any[], rowIndex: number): ApiProject | null {
   const [
     id,
     icon,
@@ -72,7 +72,7 @@ function rowToProject(row: any[]): ApiProject | null {
   if (!hasAny) return null;
 
   const parsed: ApiProject = {
-    id: String(id ?? "").trim(),
+    id: String(id ?? "").trim() || String(rowIndex + 2),
     icon: String(icon ?? "").trim(),
     title: String(title ?? "").trim(),
     description: String(description ?? "").trim(),
@@ -106,7 +106,7 @@ export async function GET() {
     const rows = res.data.values ?? [];
 
     const parsed = rows
-      .map(rowToProject)
+      .map((r, i) => rowToProject(r, i))
       .filter((p): p is ApiProject => Boolean(p));
 
     const withIndex = parsed.map((p, idx) => ({ p, idx }));

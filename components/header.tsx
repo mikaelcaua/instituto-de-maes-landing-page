@@ -1,19 +1,20 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Menu, X, Heart, Instagram, Phone } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import Link from "next/link";
+import { Menu, X, Heart, Instagram, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { href: "#sobre", label: "Sobre Nós" },
   { href: "#historia", label: "Nossa História" },
+  { href: "#transparencia", label: "Transparencia" },
   { href: "#projetos", label: "Projetos" },
   { href: "#contato", label: "Contato" },
-]
+];
 
 export function Header() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -24,8 +25,12 @@ export function Header() {
               <Heart className="w-5 h-5 text-primary-foreground" />
             </div>
             <div className="hidden sm:block">
-              <span className="font-serif text-lg font-semibold text-foreground">Instituto de Mães e Pais</span>
-              <span className="block text-xs text-muted-foreground -mt-1">Vila Verde</span>
+              <span className="font-serif text-lg font-semibold text-foreground">
+                Instituto de Mães e Pais
+              </span>
+              <span className="block text-xs text-muted-foreground -mt-1">
+                Vila Verde
+              </span>
             </div>
           </Link>
 
@@ -61,12 +66,19 @@ export function Header() {
               <Phone className="w-5 h-5" />
             </a>
             <div className="w-px h-6 bg-border mx-2" />
-            <Button asChild className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+            <Button
+              asChild
+              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+            >
               <Link href="#contato">Apoie Nossa Causa</Link>
             </Button>
           </div>
 
-          <button className="md:hidden p-2" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
+          <button
+            className="md:hidden p-2"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
@@ -84,9 +96,9 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              
+
               <div className="flex items-center gap-4 py-2 border-t border-border mt-2">
-                 <a
+                <a
                   href="https://www.instagram.com/institutodemaesepaisvilaverde/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -104,7 +116,10 @@ export function Header() {
                 </a>
               </div>
 
-              <Button asChild className="bg-secondary hover:bg-secondary/90 text-secondary-foreground w-fit">
+              <Button
+                asChild
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground w-fit"
+              >
                 <Link href="#contato">Apoie Nossa Causa</Link>
               </Button>
             </div>
@@ -112,5 +127,5 @@ export function Header() {
         )}
       </div>
     </header>
-  )
+  );
 }
