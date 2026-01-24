@@ -27,7 +27,8 @@ interface Project {
   status: "Em andamento" | "Concluído";
   projectDetails: string;
   year: string;
-  image: string;
+  image1: string;
+  image2: string;
 }
 
 export default function ProjetosPage() {
@@ -57,8 +58,9 @@ export default function ProjetosPage() {
             status: p.status === "Concluído" ? "Concluído" : "Em andamento",
             projectDetails: String(p.projectDetails || ""),
             year: String(p.year || ""),
-            image: String(p.image || ""),
-          })
+            image1: String(p.image1 || ""),
+            image2: String(p.image2 || ""),
+          }),
         );
 
         if (alive) setProjects(mapped);
@@ -84,7 +86,8 @@ export default function ProjetosPage() {
               Todos os Projetos
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Explore nossa galeria completa de iniciativas que transformam vidas e fortalecem a comunidade.
+              Explore nossa galeria completa de iniciativas que transformam
+              vidas e fortalecem a comunidade.
             </p>
           </div>
 
@@ -97,8 +100,17 @@ export default function ProjetosPage() {
               {projects.map((project, idx) => (
                 <Card
                   key={`${project.title}-${project.year}-${idx}`}
-                  className="group hover:border-primary/30 transition-colors bg-card flex flex-col h-full"
+                  className="group hover:border-primary/30 transition-colors bg-card flex flex-col h-full overflow-hidden"
                 >
+                  {project.image1 && (
+                    <div className="w-full h-48 overflow-hidden">
+                      <img
+                        src={project.image1}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                  )}
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div />
@@ -199,15 +211,23 @@ export default function ProjetosPage() {
                   </div>
                 </DialogHeader>
 
-                {selectedProject.image && (
+                {selectedProject.image2 ? (
                   <div className="my-4 rounded-lg overflow-hidden border">
                     <img
-                      src={selectedProject.image}
+                      src={selectedProject.image2}
                       alt={selectedProject.title}
                       className="w-full h-auto object-cover max-h-[400px]"
                     />
                   </div>
-                )}
+                ) : selectedProject.image1 ? (
+                  <div className="my-4 rounded-lg overflow-hidden border">
+                    <img
+                      src={selectedProject.image1}
+                      alt={selectedProject.title}
+                      className="w-full h-auto object-cover max-h-[400px]"
+                    />
+                  </div>
+                ) : null}
 
                 <DialogDescription asChild>
                   <div className="text-base leading-relaxed text-foreground space-y-4">

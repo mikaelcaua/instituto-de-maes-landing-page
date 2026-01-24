@@ -14,7 +14,8 @@ const ProjectSchema = z.object({
     .default("Em andamento"),
   projectDetails: z.string().optional().default(""),
   year: z.string().optional().default(""),
-  image: z.string().optional().default(""),
+  image1: z.string().optional().default(""),
+  image2: z.string().optional().default(""),
 });
 
 export type ApiProject = z.infer<typeof ProjectSchema>;
@@ -23,12 +24,12 @@ function getAuth() {
   const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
   const privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY?.replace(
     /\\n/g,
-    "\n"
+    "\n",
   );
 
   if (!clientEmail || !privateKey) {
     throw new Error(
-      "Missing GOOGLE_SHEETS_CLIENT_EMAIL / GOOGLE_SHEETS_PRIVATE_KEY"
+      "Missing GOOGLE_SHEETS_CLIENT_EMAIL / GOOGLE_SHEETS_PRIVATE_KEY",
     );
   }
 
@@ -41,14 +42,22 @@ function getAuth() {
 
 function getConfig() {
   const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-  const tab = process.env.GOOGLE_SHEET_TAB || "Projects";
+  const tab = "Projetos";
   if (!spreadsheetId) throw new Error("Missing GOOGLE_SHEET_ID");
   return { spreadsheetId, tab };
 }
 
 function rowToProject(row: any[], rowIndex: number): ApiProject | null {
-  const [title, description, tags, status, projectDetails, year, image] =
-    row ?? [];
+  const [
+    title,
+    description,
+    tags,
+    status,
+    projectDetails,
+    year,
+    image1,
+    image2,
+  ] = row ?? [];
 
   const hasAny = [
     title,
@@ -57,8 +66,10 @@ function rowToProject(row: any[], rowIndex: number): ApiProject | null {
     status,
     projectDetails,
     year,
-    image,
+    image1,
+    image2,
   ].some((v) => String(v ?? "").trim() !== "");
+
   if (!hasAny) return null;
 
   const parsed = {
@@ -71,7 +82,8 @@ function rowToProject(row: any[], rowIndex: number): ApiProject | null {
     status: status === "Concluído" ? "Concluído" : "Em andamento",
     projectDetails: String(projectDetails ?? "").trim(),
     year: String(year ?? "").trim(),
-    image: String(image ?? "").trim(),
+    image1: String(image1 ?? "").trim(),
+    image2: String(image2 ?? "").trim(),
   };
 
   const ok = ProjectSchema.safeParse(parsed);
@@ -88,7 +100,7 @@ export async function GET() {
 
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: `${tab}!A2:G`,
+      range: `${tab}!A2:H`,
     });
 
     const rows = res.data.values ?? [];
@@ -114,7 +126,7 @@ export async function GET() {
   } catch (e: any) {
     return NextResponse.json(
       { message: "Erro ao buscar projetos", error: e?.message ?? String(e) },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

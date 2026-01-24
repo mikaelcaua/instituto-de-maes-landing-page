@@ -13,7 +13,6 @@ import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -26,7 +25,8 @@ interface Project {
   status: "Em andamento" | "Concluído";
   projectDetails: string;
   year: string;
-  image: string;
+  image1: string;
+  image2: string;
 }
 
 export function Projects() {
@@ -55,8 +55,9 @@ export function Projects() {
             status: p.status === "Concluído" ? "Concluído" : "Em andamento",
             projectDetails: String(p.projectDetails || ""),
             year: String(p.year || ""),
-            image: String(p.image || ""),
-          })
+            image1: String(p.image1 || ""),
+            image2: String(p.image2 || ""),
+          }),
         );
         if (alive) setProjects(mapped);
       } catch {
@@ -65,10 +66,11 @@ export function Projects() {
         if (alive) setLoading(false);
       }
     })();
-    return () => { alive = false; };
+    return () => {
+      alive = false;
+    };
   }, []);
 
-  // Exibir apenas os 3 primeiros na Home
   const visibleProjects = useMemo(() => projects.slice(0, 3), [projects]);
 
   return (
@@ -96,19 +98,39 @@ export function Projects() {
               {visibleProjects.map((project, idx) => (
                 <Card
                   key={`${project.title}-${project.year}-${idx}`}
-                  className="group hover:border-primary/30 transition-colors bg-card flex flex-col h-full"
+                  className="group hover:border-primary/30 transition-colors bg-card flex flex-col h-full overflow-hidden"
                 >
+                  {project.image1 && (
+                    <div className="w-full h-48 overflow-hidden">
+                      <img
+                        src={project.image1}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                  )}
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div />
                       <div className="flex flex-col items-end gap-2">
                         <Badge
-                          variant={project.status === "Concluído" ? "secondary" : "outline"}
-                          className={project.status === "Concluído" ? "bg-secondary text-secondary-foreground" : ""}
+                          variant={
+                            project.status === "Concluído"
+                              ? "secondary"
+                              : "outline"
+                          }
+                          className={
+                            project.status === "Concluído"
+                              ? "bg-secondary text-secondary-foreground"
+                              : ""
+                          }
                         >
                           {project.status}
                         </Badge>
-                        <Badge variant="outline" className="text-xs whitespace-nowrap">
+                        <Badge
+                          variant="outline"
+                          className="text-xs whitespace-nowrap"
+                        >
                           {project.year}
                         </Badge>
                       </div>
@@ -123,9 +145,13 @@ export function Projects() {
                   <CardContent className="mt-auto">
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tags.slice(0, 3).map((tag, tagIndex) => (
-                         <Badge key={tagIndex} variant="outline" className="text-xs">
-                           {tag}
-                         </Badge>
+                        <Badge
+                          key={tagIndex}
+                          variant="outline"
+                          className="text-xs"
+                        >
+                          {tag}
+                        </Badge>
                       ))}
                     </div>
                     <Button
@@ -153,17 +179,48 @@ export function Projects() {
 
       <Dialog
         open={!!selectedProject}
-        onOpenChange={(isOpen) => { if (!isOpen) setSelectedProject(null); }}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) setSelectedProject(null);
+        }}
       >
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-             {selectedProject && (
-                <>
-                  <DialogHeader>
-                    <DialogTitle className="font-serif text-2xl mb-2">{selectedProject.title}</DialogTitle>
-                     <p>{selectedProject.description}</p>
-                  </DialogHeader>
-                </>
-             )}
+          {selectedProject && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="font-serif text-2xl mb-2">
+                  {selectedProject.title}
+                </DialogTitle>
+              </DialogHeader>
+
+              {selectedProject.image2 ? (
+                <div className="my-4 rounded-lg overflow-hidden border">
+                  <img
+                    src={selectedProject.image2}
+                    alt={selectedProject.title}
+                    className="w-full h-auto object-cover max-h-[400px]"
+                  />
+                </div>
+              ) : selectedProject.image1 ? (
+                <div className="my-4 rounded-lg overflow-hidden border">
+                  <img
+                    src={selectedProject.image1}
+                    alt={selectedProject.title}
+                    className="w-full h-auto object-cover max-h-[400px]"
+                  />
+                </div>
+              ) : null}
+
+              <div className="text-base leading-relaxed text-foreground space-y-4">
+                <p>{selectedProject.description}</p>
+                {selectedProject.projectDetails && (
+                  <p className="text-sm text-muted-foreground mt-4">
+                    <strong>Detalhes/Parceria:</strong>{" "}
+                    {selectedProject.projectDetails}
+                  </p>
+                )}
+              </div>
+            </>
+          )}
         </DialogContent>
       </Dialog>
     </section>

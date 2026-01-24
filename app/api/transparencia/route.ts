@@ -7,9 +7,11 @@ export const runtime = "nodejs";
 const Schema = z.object({
   id: z.string().optional(),
   title: z.string().min(1),
-  valor: z.string().min(1),
-  data: z.string().min(1),
+  value: z.string().min(1),
+  date: z.string().min(1),
 });
+
+export type ApiTransparencyItem = z.infer<typeof Schema>;
 
 function getAuth() {
   const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
@@ -38,9 +40,10 @@ function getConfig() {
   return { spreadsheetId, tab };
 }
 
-function rowToItem(row: any[], rowIndex: number) {
-  const [title, valor, data] = row ?? [];
-  const hasAny = [title, valor, data].some(
+function rowToItem(row: any[], rowIndex: number): ApiTransparencyItem | null {
+  const [title, value, date] = row ?? [];
+
+  const hasAny = [title, value, date].some(
     (v) => String(v ?? "").trim() !== ""
   );
   if (!hasAny) return null;
@@ -48,8 +51,8 @@ function rowToItem(row: any[], rowIndex: number) {
   const parsed = {
     id: String(rowIndex + 2),
     title: String(title ?? "").trim(),
-    valor: String(valor ?? "").trim(),
-    data: String(data ?? "").trim(),
+    value: String(value ?? "").trim(),
+    date: String(date ?? "").trim(),
   };
 
   const ok = Schema.safeParse(parsed);
@@ -71,7 +74,7 @@ export async function GET() {
 
     const parsed = rows
       .map((r, i) => rowToItem(r, i))
-      .filter((p) => Boolean(p));
+      .filter((p): p is ApiTransparencyItem => Boolean(p));
 
     return NextResponse.json(parsed, {
       headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=240" },
