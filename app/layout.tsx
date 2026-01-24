@@ -16,7 +16,6 @@ export const metadata: Metadata = {
   },
   description:
     "Instituto Maes e Pais Vila Verde (São Luís - MA). Projetos sociais na comunidade do Anjo da Guarda e Itaqui-Bacanga. Apoio a famílias, mulheres e crianças.",
-  // Colocamos as variações aqui, mas o 'pulo do gato' está no Passo 2
   keywords: [
     "instituto de mães e pais",
     "maesepais",
@@ -55,6 +54,20 @@ export const metadata: Metadata = {
     siteName: "Instituto Maes e Pais Vila Verde",
     locale: "pt_BR",
     type: "website",
+    images: [
+      {
+        url: "/icone-instituto-maes-pais-vila-verde-light.png",
+        width: 512,
+        height: 512,
+        alt: "Logo Instituto de Mães e Pais Vila Verde",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Instituto Vila Verde",
+    description: "Ação social no Anjo da Guarda e Vila Verde - MA",
+    images: ["/icone-instituto-maes-pais-vila-verde-light.png"],
   },
   icons: {
     icon: [
@@ -73,59 +86,59 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
-  
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "NGO",
-    "name": "Instituto de Mães e Pais Vila Verde",
-    "url": "https://www.institutomaespaisvilaverde.com.br",
-    "logo": "https://www.institutomaespaisvilaverde.com.br/icone-instituto-maes-pais-vila-verde-light.png",
-    "sameAs": [
-      "https://www.instagram.com/institutodemaesepaisvilaverde/",
-    ],
-    "alternateName": [
+    name: "Instituto de Mães e Pais Vila Verde",
+    url: "https://www.institutomaespaisvilaverde.com.br",
+    logo: "https://www.institutomaespaisvilaverde.com.br/icone-instituto-maes-pais-vila-verde-light.png",
+    sameAs: ["https://www.instagram.com/institutodemaesepaisvilaverde/"],
+    alternateName: [
       "Instituto Maes e Pais Vila Verde",
       "Instituto de Maes e Pais",
       "Maes e Pais Vila Verde",
-      
       "Instituto Vila Verde",
       "ONG Vila Verde",
       "Projeto Vila Verde",
-      
       "maesepais",
       "maesepaisvilaverde",
       "institutomaes",
-      
       "ONG Anjo da Guarda",
       "Instituto Anjo da Guarda",
       "Projeto Social Anjo da Guarda",
       "ONG Itaqui Bacanga",
       "Ação Social Vila Verde",
-      
       "Instituição Vila Verde",
-      "Centro Comunitário Vila Verde"
+      "Centro Comunitário Vila Verde",
     ],
-    "description": "ONG dedicada ao empoderamento de famílias na Vila Verde e Anjo da Guarda, São Luís.",
-    "address": {
+    description:
+      "ONG dedicada ao empoderamento de famílias na Vila Verde e Anjo da Guarda, São Luís.",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "São Luís",
-      "addressRegion": "MA",
-      "addressCountry": "BR",
-      "streetAddress": "Anjo da Guarda" 
+      addressLocality: "São Luís",
+      addressRegion: "MA",
+      addressCountry: "BR",
+      streetAddress: "Anjo da Guarda",
     },
-    "areaServed": {
+    areaServed: {
       "@type": "Place",
-      "name": ["Anjo da Guarda", "Vila Verde", "Itaqui-Bacanga", "São Luís", "Maranhão"]
+      name: [
+        "Anjo da Guarda",
+        "Vila Verde",
+        "Itaqui-Bacanga",
+        "São Luís",
+        "Maranhão",
+      ],
     },
-    "contactPoint": {
+    contactPoint: {
       "@type": "ContactPoint",
-      "contactType": "customer support",
-      "areaServed": "BR",
-      "availableLanguage": "Portuguese"
-    }
-  }
+      contactType: "customer support",
+      areaServed: "BR",
+      availableLanguage: "Portuguese",
+    },
+  };
 
   return (
     <html lang="pt-BR">
@@ -138,5 +151,5 @@ export default function RootLayout({
         />
       </body>
     </html>
-  )
+  );
 }
