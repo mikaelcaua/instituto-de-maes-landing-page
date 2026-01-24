@@ -4,13 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, Heart, Instagram, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const navLinks = [
-  { href: "#sobre", label: "Sobre Nós" },
-  { href: "#historia", label: "Nossa História" },
-  { href: "#transparencia", label: "Transparencia" },
-  { href: "#projetos", label: "Projetos" },
-  { href: "#contato", label: "Contato" },
+  { href: "/#sobre", label: "Sobre Nós" },
+  { href: "/#historia", label: "Nossa História" },
+  { href: "/transparencia", label: "Transparência" },
+  { href: "/projetos", label: "Projetos" },
+  { href: "/#contato", label: "Contato" },
 ];
 
 export function Header() {
@@ -21,8 +22,8 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-              <Heart className="w-5 h-5 text-primary-foreground" />
+            <div className="w-15 h-15 rounded-full flex items-center justify-center">
+              <Image src="/icone-instituto-maes-pais-vila-verde-light.png" alt="Instituto de Mães e Pais Vila Verde" width={60} height={60} />
             </div>
             <div className="hidden sm:block">
               <span className="font-serif text-lg font-semibold text-foreground">
@@ -70,7 +71,7 @@ export function Header() {
               asChild
               className="bg-secondary hover:bg-secondary/90 text-secondary-foreground"
             >
-              <Link href="#contato">Apoie Nossa Causa</Link>
+              <Link href="/#contato">Apoie Nossa Causa</Link>
             </Button>
           </div>
 
@@ -120,7 +121,9 @@ export function Header() {
                 asChild
                 className="bg-secondary hover:bg-secondary/90 text-secondary-foreground w-fit"
               >
-                <Link href="#contato">Apoie Nossa Causa</Link>
+                <Link href="/#contato" onClick={() => setIsOpen(false)}>
+                  Apoie Nossa Causa
+                </Link>
               </Button>
             </div>
           </nav>

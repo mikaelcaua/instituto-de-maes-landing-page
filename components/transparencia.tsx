@@ -1,9 +1,8 @@
 "use client";
 import { useEffect, useState, useMemo } from "react";
+import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Calendar } from "lucide-react";
 
 interface Item {
   id: string;
@@ -12,20 +11,16 @@ interface Item {
   data: string;
 }
 
-const ITEMS_PER_PAGE = 10;
-
 export function Transparencia() {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [dateFilter, setDateFilter] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     let alive = true;
     (async () => {
       try {
         setLoading(true);
+        // Sugestão: Se tiver paginação no backend, peça apenas page=1&limit=5
         const res = await fetch("/api/transparencia");
         const data = (await res.json()) as any[];
         const mapped: Item[] = (Array.isArray(data) ? data : []).map((p) => ({
@@ -41,36 +36,11 @@ export function Transparencia() {
         if (alive) setLoading(false);
       }
     })();
-    return () => {
-      alive = false;
-    };
+    return () => { alive = false; };
   }, []);
 
-  const filteredItems = useMemo(() => {
-    let filtered = items;
-
-    if (searchTerm) {
-      filtered = filtered.filter((item) =>
-        item.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    if (dateFilter) {
-      filtered = filtered.filter((item) => item.data.includes(dateFilter));
-    }
-
-    return filtered;
-  }, [items, searchTerm, dateFilter]);
-
-  const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
-  const paginatedItems = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredItems.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  }, [filteredItems, currentPage]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchTerm, dateFilter]);
+  // Pegar apenas os 5 primeiros
+  const previewItems = useMemo(() => items.slice(0, 5), [items]);
 
   return (
     <section id="transparencia" className="pt-24 pb-6 bg-muted/30">
@@ -80,39 +50,19 @@ export function Transparencia() {
             Transparência
           </span>
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mt-4 mb-6 text-balance">
-            Portal da Transparência
+            Prestação de Contas Recente
           </h2>
+          <p className="text-muted-foreground">
+            Acompanhe as últimas movimentações. Para relatórios completos e busca detalhada, acesse nosso portal.
+          </p>
         </div>
 
         {loading ? (
           <div className="text-center text-muted-foreground py-10">
-            Carregando dados…
+            Carregando dados...
           </div>
         ) : (
           <>
-            <div className="mb-6 flex flex-col sm:flex-row gap-4">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
-                  type="text"
-                  placeholder="Buscar por título..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-white"
-                />
-              </div>
-              <div className="relative sm:w-64">
-                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
-                  type="text"
-                  placeholder="Filtrar por data (ex: 2024)"
-                  value={dateFilter}
-                  onChange={(e) => setDateFilter(e.target.value)}
-                  className="pl-10 bg-white"
-                />
-              </div>
-            </div>
-
             <Card className="bg-card">
               <CardHeader className="border-b">
                 <div className="grid grid-cols-3 gap-4 text-sm font-semibold text-muted-foreground">
@@ -122,65 +72,28 @@ export function Transparencia() {
                 </div>
               </CardHeader>
               <CardContent className="p-0">
-                {paginatedItems.length === 0 ? (
-                  <div className="text-center text-muted-foreground py-10">
-                    {filteredItems.length === 0 && (searchTerm || dateFilter)
-                      ? "Nenhum resultado encontrado para os filtros aplicados"
-                      : "Nenhum dado disponível"}
-                  </div>
-                ) : (
                   <div className="divide-y">
-                    {paginatedItems.map((it) => (
+                    {previewItems.map((it) => (
                       <div
                         key={it.id}
                         className="grid grid-cols-3 gap-4 p-4 hover:bg-muted/50 transition-colors"
                       >
-                        <div className="text-center">
-                          <div className="font-semibold text-foreground">
-                            {it.title}
-                          </div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-sm text-foreground font-medium">
-                            {it.valor}
-                          </div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-sm text-muted-foreground">
-                            {it.data}
-                          </div>
-                        </div>
+                        <div className="text-center font-semibold text-foreground">{it.title}</div>
+                        <div className="text-center text-sm text-foreground font-medium">{it.valor}</div>
+                        <div className="text-center text-sm text-muted-foreground">{it.data}</div>
                       </div>
                     ))}
                   </div>
-                )}
               </CardContent>
             </Card>
 
-            {filteredItems.length > ITEMS_PER_PAGE && (
-              <div className="flex justify-center items-center gap-4 mt-6">
-                <Button
-                  variant="outline"
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                >
-                  Anterior
+            <div className="flex justify-center mt-10">
+              <Link href="/transparencia">
+                <Button variant="default" size="lg">
+                  Acessar Portal da Transparência Completo
                 </Button>
-                <span className="text-sm text-muted-foreground">
-                  Página {currentPage} de {totalPages} ({filteredItems.length}{" "}
-                  {filteredItems.length === 1 ? "registro" : "registros"})
-                </span>
-                <Button
-                  variant="outline"
-                  onClick={() =>
-                    setCurrentPage((p) => Math.min(totalPages, p + 1))
-                  }
-                  disabled={currentPage === totalPages}
-                >
-                  Próxima
-                </Button>
-              </div>
-            )}
+              </Link>
+            </div>
           </>
         )}
       </div>

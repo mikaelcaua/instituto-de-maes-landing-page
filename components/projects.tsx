@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -32,11 +33,9 @@ export function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     let alive = true;
-
     (async () => {
       try {
         setLoading(true);
@@ -59,7 +58,6 @@ export function Projects() {
             image: String(p.image || ""),
           })
         );
-
         if (alive) setProjects(mapped);
       } catch {
         if (alive) setProjects([]);
@@ -67,16 +65,11 @@ export function Projects() {
         if (alive) setLoading(false);
       }
     })();
-
-    return () => {
-      alive = false;
-    };
+    return () => { alive = false; };
   }, []);
 
-  const visibleProjects = useMemo(
-    () => (showAll ? projects : projects.slice(0, 3)),
-    [projects, showAll]
-  );
+  // Exibir apenas os 3 primeiros na Home
+  const visibleProjects = useMemo(() => projects.slice(0, 3), [projects]);
 
   return (
     <section id="projetos" className="pt-24 pb-6 bg-muted/30">
@@ -89,15 +82,13 @@ export function Projects() {
             Transformando Vidas Através da Ação
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            Desenvolvemos projetos que promovem capacitação, geração de renda e
-            fortalecimento dos laços comunitários, sempre com foco na
-            transformação social.
+            Confira nossas iniciativas recentes.
           </p>
         </div>
 
         {loading ? (
           <div className="text-center text-muted-foreground py-10">
-            Carregando projetos…
+            Carregando projetos...
           </div>
         ) : (
           <>
@@ -112,23 +103,12 @@ export function Projects() {
                       <div />
                       <div className="flex flex-col items-end gap-2">
                         <Badge
-                          variant={
-                            project.status === "Concluído"
-                              ? "secondary"
-                              : "outline"
-                          }
-                          className={
-                            project.status === "Concluído"
-                              ? "bg-secondary text-secondary-foreground"
-                              : ""
-                          }
+                          variant={project.status === "Concluído" ? "secondary" : "outline"}
+                          className={project.status === "Concluído" ? "bg-secondary text-secondary-foreground" : ""}
                         >
                           {project.status}
                         </Badge>
-                        <Badge
-                          variant="outline"
-                          className="text-xs whitespace-nowrap"
-                        >
+                        <Badge variant="outline" className="text-xs whitespace-nowrap">
                           {project.year}
                         </Badge>
                       </div>
@@ -140,20 +120,14 @@ export function Projects() {
                       {project.description}
                     </CardDescription>
                   </CardHeader>
-
                   <CardContent className="mt-auto">
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag, tagIndex) => (
-                        <Badge
-                          key={tagIndex}
-                          variant="outline"
-                          className="text-xs"
-                        >
-                          {tag}
-                        </Badge>
+                      {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                         <Badge key={tagIndex} variant="outline" className="text-xs">
+                           {tag}
+                         </Badge>
                       ))}
                     </div>
-
                     <Button
                       variant="link"
                       className="p-0 h-auto text-primary font-medium hover:text-primary/80"
@@ -166,90 +140,30 @@ export function Projects() {
               ))}
             </div>
 
-            {projects.length > 3 && (
-              <div className="flex justify-center mt-10">
-                <Button variant="outline" onClick={() => setShowAll((v) => !v)}>
-                  {showAll ? "Ver menos projetos" : "Ver mais projetos"}
+            <div className="flex justify-center mt-10">
+              <Link href="/projetos">
+                <Button variant="outline" size="lg">
+                  Ver todos os projetos
                 </Button>
-              </div>
-            )}
+              </Link>
+            </div>
           </>
         )}
       </div>
 
       <Dialog
         open={!!selectedProject}
-        onOpenChange={(isOpen) => {
-          if (!isOpen) setSelectedProject(null);
-        }}
+        onOpenChange={(isOpen) => { if (!isOpen) setSelectedProject(null); }}
       >
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-          {selectedProject && (
-            <>
-              <DialogHeader>
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="flex-1">
-                    <DialogTitle className="font-serif text-2xl mb-2 text-balance leading-tight">
-                      {selectedProject.title}
-                    </DialogTitle>
-                    <div className="flex flex-wrap gap-2 items-center">
-                      <Badge
-                        variant={
-                          selectedProject.status === "Concluído"
-                            ? "secondary"
-                            : "outline"
-                        }
-                        className={
-                          selectedProject.status === "Concluído"
-                            ? "bg-secondary text-secondary-foreground"
-                            : ""
-                        }
-                      >
-                        {selectedProject.status}
-                      </Badge>
-                      <Badge variant="outline">{selectedProject.year}</Badge>
-                      <span className="text-sm text-muted-foreground ml-2">
-                        Parceria: {selectedProject.projectDetails}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </DialogHeader>
-
-              {selectedProject.image && (
-                <div className="my-4 rounded-lg overflow-hidden border">
-                  <img
-                    src={selectedProject.image}
-                    alt={selectedProject.title}
-                    className="w-full h-auto object-cover max-h-[400px]"
-                  />
-                </div>
-              )}
-
-              <DialogDescription asChild>
-                <div className="text-base leading-relaxed text-foreground space-y-4">
-                  <p>{selectedProject.description}</p>
-                </div>
-              </DialogDescription>
-
-              <div className="mt-6 pt-4 border-t">
-                <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-muted-foreground">
-                  Áreas de atuação
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.tags.map((tag, tagIndex) => (
-                    <Badge
-                      key={tagIndex}
-                      variant="secondary"
-                      className="text-sm"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
+             {selectedProject && (
+                <>
+                  <DialogHeader>
+                    <DialogTitle className="font-serif text-2xl mb-2">{selectedProject.title}</DialogTitle>
+                     <p>{selectedProject.description}</p>
+                  </DialogHeader>
+                </>
+             )}
         </DialogContent>
       </Dialog>
     </section>

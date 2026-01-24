@@ -1,5 +1,6 @@
-import Link from "next/link"
-import { Heart, Instagram, Mail, Phone } from "lucide-react"
+import Link from "next/link";
+import Image from "next/image";
+import { Instagram, Mail, Phone } from "lucide-react";
 
 export function Footer() {
   return (
@@ -8,33 +9,54 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                <Heart className="w-5 h-5 text-primary-foreground" />
+              <div className="w-15 h-15 rounded-full flex items-center justify-center">
+                <Image
+                  src="/icone-instituto-maes-pais-vila-verde-dark.png"
+                  alt="Instituto de Mães e Pais Vila Verde"
+                  width={60}
+                  height={60}
+                />
               </div>
               <div>
-                <span className="font-serif text-lg font-semibold">Instituto de Mães e Pais</span>
-                <span className="block text-xs text-background/70">Vila Verde</span>
+                <span className="font-serif text-lg font-semibold">
+                  Instituto de Mães e Pais
+                </span>
+                <span className="block text-xs text-background/70">
+                  Vila Verde
+                </span>
               </div>
             </div>
             <p className="text-background/70 leading-relaxed">
-              Transformando vidas através da união, capacitação e fortalecimento comunitário na Vila Verde, São Luís -
-              MA.
+              Transformando vidas através da união, capacitação e fortalecimento
+              comunitário na Vila Verde, São Luís - MA.
             </p>
           </div>
 
           <div>
             <h4 className="font-semibold mb-4">Links Rápidos</h4>
             <nav className="space-y-3">
-              <Link href="#sobre" className="block text-background/70 hover:text-background transition-colors">
+              <Link
+                href="#sobre"
+                className="block text-background/70 hover:text-background transition-colors"
+              >
                 Sobre Nós
               </Link>
-              <Link href="#historia" className="block text-background/70 hover:text-background transition-colors">
+              <Link
+                href="#historia"
+                className="block text-background/70 hover:text-background transition-colors"
+              >
                 Nossa História
               </Link>
-              <Link href="#projetos" className="block text-background/70 hover:text-background transition-colors">
+              <Link
+                href="#projetos"
+                className="block text-background/70 hover:text-background transition-colors"
+              >
                 Projetos
               </Link>
-              <Link href="#contato" className="block text-background/70 hover:text-background transition-colors">
+              <Link
+                href="#contato"
+                className="block text-background/70 hover:text-background transition-colors"
+              >
                 Contato
               </Link>
             </nav>
@@ -81,5 +103,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
